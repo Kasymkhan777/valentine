@@ -13,11 +13,12 @@ body{
     background:linear-gradient(135deg,#ffe6f0,#fff0f5,#fce4ec);
     display:flex;
     justify-content:center;
-    align-items:center;
-    height:100vh;
-    overflow:hidden;
+    align-items:flex-start;
+    min-height:100vh;
+    overflow-y:auto;
     color:#333;
     text-align:center;
+    padding-top:20px;
 }
 .card{
     background:rgba(255,255,255,0.8);
@@ -27,6 +28,7 @@ body{
     width:90%;
     max-width:600px;
     box-shadow:0 10px 40px rgba(0,0,0,0.2);
+    margin-bottom:40px;
 }
 .name{
     font-size:60px;
@@ -63,20 +65,12 @@ button:hover{
 }
 .hidden{display:none;}
 
-/* Исправленная галерея */
+/* Галерея с лайтбоксом */
 .gallery{
     display:flex;
     justify-content:center;
     flex-wrap:wrap;
     margin-top:20px;
-}
-.gallery a{
-    margin:10px;
-    display:inline-block;
-    transition: transform 0.3s;
-}
-.gallery a:hover{
-    transform: scale(1.1);
 }
 .gallery img{
     width:200px;
@@ -84,7 +78,33 @@ button:hover{
     object-fit:cover;
     border-radius:20px;
     cursor:pointer;
+    margin:10px;
     box-shadow:0 5px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+.gallery img:hover{
+    transform: scale(1.1);
+}
+
+/* Лайтбокс */
+#lightbox{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+#lightbox img{
+    max-width:90%;
+    max-height:90%;
+    border-radius:20px;
+    box-shadow:0 5px 30px rgba(0,0,0,0.5);
+    cursor:pointer;
 }
 
 .heart{
@@ -107,15 +127,15 @@ button:hover{
 <div class="name">Дана</div>
 
 <div class="text">
-ты самое яркое и светлое что когда либо случалось в моей жизни,   
-и я хочу чтоб ты знала одно 
-ты для меня абсолютно всё в этом мире 
+ты самое яркое и светлое что когда-либо случалось в моей жизни,   
+и я хочу чтоб ты знала одно:  
+ты для меня абсолютно всё в этом мире.
 </div>
 
 <button id="startBtn" onclick="startLove()">открыть моё сердечко 💌</button>
 
 <div id="proposal" class="hidden text">
-сонтик 
+сонтик, 
 позволишь мне быть рядом с тобой навсегда? 💍  
 <br><br>
 <button onclick="sayYes()">да 💖</button>
@@ -131,13 +151,16 @@ button:hover{
 сегодня, завтра и всегда. ❤️  
 
 <div class="gallery">
-    <a href="photo1.jpeg" target="_blank"><img src="photo1.jpeg" alt="Фото 1"></a>
-    <a href="photo2.jpeg" target="_blank"><img src="photo2.jpeg" alt="Фото 2"></a>
-    <a href="photo3.jpeg" target="_blank"><img src="photo3.jpeg" alt="Фото 3"></a>
+    <img src="photo1.jpeg" alt="Фото 1">
+    <img src="photo2.jpeg" alt="Фото 2">
+    <img src="photo3.jpeg" alt="Фото 3">
 </div>
 </div>
 
 </div>
+
+<!-- Лайтбокс -->
+<div id="lightbox"><img src="" alt="увеличенное фото"></div>
 
 <script>
 function startLove(){
@@ -169,6 +192,21 @@ function createHeart(){
     setTimeout(()=>{heart.remove()},4000);
 }
 setInterval(createHeart,300);
+
+// Лайтбокс
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+document.querySelectorAll('.gallery img').forEach(img => {
+    img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+    });
+});
+lightbox.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+});
+
+// Валентинка
 document.getElementById("openCardBtn").addEventListener("click", function(){
     window.open(
         "",
@@ -197,11 +235,11 @@ document.getElementById("openCardBtn").addEventListener("click", function(){
         </head>
         <body>
             <h1>💌 с днём святого валентина 💌</h1>
-            <p>зайчик, спасибо что ты есть.это 
-            самое малое что я могу сделать для тебя,
-            но надеюсь это заставит тебя улыбнуться
-            а я очень люблю когда ты улыбаешься
-            я люблю и буду любить тебя всегда.</p>
+            <p>зайчик, спасибо что ты есть. Это 
+            самое малое, что я могу сделать для тебя,
+            но надеюсь это заставит тебя улыбнуться.
+            Я очень люблю, когда ты улыбаешься,
+            и буду любить тебя всегда.</p>
         </body>
         </html>
     `);
