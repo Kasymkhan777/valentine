@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>для моей зайки 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+body{
+    margin:0;
+    padding:0;
+    font-family:'Patrick Hand', cursive;
+    background:linear-gradient(135deg,#ffe6f0,#fff0f5,#fce4ec);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+    color:#333;
+    text-align:center;
+}
+.card{
+    background:rgba(255,255,255,0.8);
+    backdrop-filter:blur(10px);
+    padding:35px;
+    border-radius:25px;
+    width:90%;
+    max-width:600px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.2);
+}
+.name{
+    font-size:60px;
+    font-weight:bold;
+    margin-bottom:10px;
+    color:#ff3c78;
+}
+.text{
+    font-size:22px;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+button{
+    margin:12px;
+    padding:12px 30px;
+    border:none;
+    border-radius:30px;
+    background:#ffb6c1;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+button:hover{
+    background:#ff82a9;
+}
+#openCardBtn button{
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
+}
+.hidden{display:none;}
+.gallery img{
+    width:110px;
+    height:110px;
+    object-fit:cover;
+    border-radius:15px;
+    margin:6px;
+    margin-top:15px;
+}
+.heart{
+    position:absolute;
+    color:#ff69b4;
+    animation:float 4s linear infinite;
+}
+@keyframes float{
+    0%{transform:translateY(0);opacity:1;}
+    100%{transform:translateY(-800px);opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<audio id="loveSong" src="surreal.mp3"></audio>
+
+<div class="card">
+
+<div class="name">Дана</div>
+
+<div class="text">
+зайчик ты самое яркое и светлое что случалось со мной в жизни  
+я хочу чтобы знала одно 
+ты для меня всё в этом мире 
+</div>
+
+<button id="startBtn" onclick="startLove()">Открой моё сердце 💌</button>
+
+<div id="proposal" class="hidden text">
+Дана…  
+позволишь мне быть рядом с тобой навсегда? 💍  
+<br><br>
+<button onclick="sayYes()">да 💖</button>
+<button id="noBtn" onmouseover="moveNo()">нет 🙈</button>
+</div>
+
+<div id="openCardBtn" class="hidden">
+<button onclick="openValentine()">открыть валентинку моей девочки 🎁</button>
+</div>
+
+<div id="final" class="hidden text">
+любимая ты мой выбор 
+сегодня, завтра и всегда. ❤️  
+
+<div class="gallery">
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+</div>
+</div>
+
+</div>
+
+<script>
+function startLove(){
+    document.getElementById("startBtn").style.display="none";
+    document.getElementById("proposal").classList.remove("hidden");
+    document.getElementById("loveSong").play();
+}
+function moveNo(){
+    const btn = document.getElementById("noBtn");
+    btn.style.position="relative";
+    btn.style.left = Math.random()*150 + "px";
+    btn.style.top = Math.random()*100 + "px";
+}
+function sayYes(){
+    document.getElementById("proposal").classList.add("hidden");
+    document.getElementById("final").classList.remove("hidden");
+    document.getElementById("openCardBtn").classList.remove("hidden");
+    for(let i=0;i<50;i++){
+        createHeart();
+    }
+}
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="❤";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*30+15)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove()},4000);
+}
+setInterval(createHeart,300);
+document.getElementById("openCardBtn").addEventListener("click", function(){
+    window.open(
+        "",
+        "valentine",
+        "width=400,height=500,left=500,top=200"
+    ).document.write(`
+        <html>
+        <head>
+            <title>валентинка 💌</title>
+            <style>
+                body{
+                    font-family:'Patrick Hand', cursive;
+                    background:linear-gradient(135deg,#ffe6f0,#fff0f5,#fce4ec);
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                    height:100vh;
+                    text-align:center;
+                    color:#ff3c78;
+                    flex-direction:column;
+                    padding:20px;
+                }
+                h1{font-size:40px;}
+                p{font-size:22px; line-height:1.6; margin-top:20px;}
+            </style>
+        </head>
+        <body>
+            <h1>💌 с днём святого Валентина 💌</h1>
+            <p>зайчик, спасибо что ты есть.    
+            люблю и буду любить всегда.</p>
+        </body>
+        </html>
+    `);
+});
+</script>
+
+</body>
+</html>
